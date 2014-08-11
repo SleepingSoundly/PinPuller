@@ -19,37 +19,48 @@
 
 
 import os
-import random
-import bs4 from BeautifulSoup
+import classPin
+from urlparse import urlparse
+import httplib
 
-def get_username():
+def check_user(u):
+	url = "http://www.pinterest.com/" + u
+	p = urlparse(url)
+	conn = httplib.HTTPConnection(p.netloc)
+	conn.request('Head', p.path)
+	resp = conn.getresponse()
+	print resp.status	
+	return (resp.status < 400)
 
-	return
-
-
-def get_boardname():
-	return
-
-
-def pull_boardnames(username, board_soup):
-	# http://www.pinterest.com/liahoag/ (username) (search by name as opposed to username?)
-	# search the html document for "h3 class = "boardName"" (matched?)
-	# url is <a href = "username/boardname"> (spaces are '-'), called boardLinkWrapper
-
-	return
-
-def pull_pins(pin_soup):
-	# search each pin (need some way of loading all the information from the page)
-	# <div class="pinWrapper">, has an image and meta. (how do you display pictures?)
-
-
-	return
 
 
 def main():
+	print "--------------------------------------------------------\n"
+	print "-                       PIN PULLER                     -\n"
+	print "-                                                      -\n"
+	print "-                       I was bored                    -\n"
+	print "-                                                      -\n"
+	print "-                                                      -\n"
+	print "--------------------------------------------------------\n\n\n\n"
 
 
+	print "Please give a username or full name that you use to access Pinterest:\n"
 
+	while True:
+
+		username = raw_input()
+		print "searching for you...."
+		if (check_user(username) == False):
+			print "either you don't exist or you typo-ed, try again: \n"
+		else:
+			break
+
+	#huzzah we have a valid user
+	#print boards? CLASS TIME AAAAH YEAH
+
+
+	u = classPin.user(username)
+	u.print_boards()
 	return
 
 
