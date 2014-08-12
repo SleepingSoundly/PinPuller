@@ -1,8 +1,8 @@
 ###############################################################
 #				PinPuller 
-#	-username
-#	-pick board
-#	-list pin discriptions
+#	-username (for the whole session)
+#	-pick board (changable)
+#	-list pin discriptions (changable)
 #
 #	TODO?
 # 		-randomly pick a pin (good for food)
@@ -29,8 +29,21 @@ def check_user(u):
 	conn = httplib.HTTPConnection(p.netloc)
 	conn.request('Head', p.path)
 	resp = conn.getresponse()
-	print resp.status	
+	# print resp.status	# debug
 	return (resp.status < 400)
+
+def pin_menu():
+	print "1: View Pins by Date\n"
+	print "2: View Pins Alphabetically\n"
+	print "3: Randomly Choose 5\n"
+	print "4: Change Boards\n"
+	print "5: Quit\n"
+
+menu = {'1': 
+		'2':
+		'3': 
+		'4': break
+		'5': print "Thanks for playing"; return}
 
 
 
@@ -61,6 +74,24 @@ def main():
 
 	u = classPin.user(username)
 	u.print_boards()
+	while True:
+		print "\n which board would you like to see?"
+		while True:
+			b = raw_input()
+			if u.board_exists(b):
+				break
+			else:
+				print "Error: board does not exist, please try again"
+
+		print "\nplease choose an action for " + b.upper() + "\n"
+		pin_menu()
+		c = raw_input()
+		try:
+			menu[c](u, b)
+
+		break
+
+
 	return
 
 
